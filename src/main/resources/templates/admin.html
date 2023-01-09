@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:c="">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<div>
+  <table>
+    <thead>
+    <th>ID</th>
+    <th>UserName</th>
+    <th>Password</th>
+    <th>Roles</th>
+    </thead>
+    <c:forEach items="${allUsers}" var="user">
+      <tr>
+        <td>${user.id}</td>
+        <td>${user.username}</td>
+        <td>${user.password}</td>
+        <td>
+          <c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>
+        </td>
+        <td>
+          <form action="${pageContext.request.contextPath}/admin" method="post">
+            <input type="hidden" name="userId" value="${user.id}"/>
+            <input type="hidden" name="action" value="delete"/>
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    </c:forEach>
+  </table>
+  <a href="/">Главная</a>
+</div>
+</body>
+</html>
