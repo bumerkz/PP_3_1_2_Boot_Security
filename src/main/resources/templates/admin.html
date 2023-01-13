@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:c="">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
 </head>
 <body>
+
 <div>
-  <table>
-    <thead>
-    <th>ID</th>
-    <th>UserName</th>
-    <th>Password</th>
-    <th>Roles</th>
-    </thead>
-    <c:forEach items="${allUsers}" var="user">
-      <tr>
-        <td>${user.id}</td>
-        <td>${user.username}</td>
-        <td>${user.password}</td>
-        <td>
-          <c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>
-        </td>
-        <td>
-          <form action="${pageContext.request.contextPath}/admin" method="post">
-            <input type="hidden" name="userId" value="${user.id}"/>
-            <input type="hidden" name="action" value="delete"/>
-            <button type="submit">Delete</button>
-          </form>
-        </td>
-      </tr>
-    </c:forEach>
-  </table>
-  <a href="/">Главная</a>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Email</th>
+            <th scope="col">Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getId()}">
+            <td th:text="${user.getUsername()}">
+            <td th:text="${user.getPassword()}">
+            <td th:text="${user.getEmail()}">
+            <td th:text="${user.getAge()}">
+        </tr>
+        </tbody>
+    </table>
+
+    <br/>
+    <a href="/admin/create">Create new Person</a>
 </div>
 </body>
 </html>
