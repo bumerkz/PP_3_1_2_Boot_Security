@@ -5,15 +5,17 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
+import ru.kata.spring.boot_security.demo.entity.Role;
 import ru.kata.spring.boot_security.demo.entity.User;
 
 
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
-
+@Service
 public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final RoleDao roleDao;
@@ -24,6 +26,12 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
         this.roleDao = roleDao;
         this.encoder = encoder;
+    }
+
+    @Transactional
+    public void addRole(Role role) {
+        Role userOne = roleDao.findByName(role.getRolename());
+        roleDao.addRole(role);
     }
 
     @Override

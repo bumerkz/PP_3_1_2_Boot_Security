@@ -36,9 +36,17 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
 
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(String username, String password, String email, int age, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.roles = roles;
     }
 
     public User(Long id, String username, String password, String email, int age, Set <Role> roles) {

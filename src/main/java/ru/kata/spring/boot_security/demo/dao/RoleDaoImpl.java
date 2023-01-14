@@ -22,6 +22,11 @@ public class RoleDaoImpl implements RoleDao {
         return entityManager.createQuery("SELECT r FROM Role r WHERE r.rolename = :name", Role.class)
                 .setParameter("name", name).getSingleResult();
     }
+    @Override
+    public Role findByName(String name) {
+        return entityManager.createQuery("select r from Role r where r.rolename= :id", Role.class)
+                .setParameter("id", name).getResultList().stream().findAny().orElse(null);
+    }
 
     @Override
     public Role getRoleById(Long id) {
